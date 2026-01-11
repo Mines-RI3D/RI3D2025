@@ -6,12 +6,12 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
 
-  private final CommandPS4Controller controller = new CommandPS4Controller(0);
+  private final CommandXboxController controller = new CommandXboxController(0);
   private final DriveBase m_driveBase = new DriveBase();
 
   public RobotContainer() {
@@ -19,7 +19,7 @@ public class RobotContainer {
 
     m_driveBase.setDefaultCommand(
       Commands.run(
-        ()->m_driveBase.driveDifferential(controller.getLeftY(), controller.getLeftX()),
+        ()->m_driveBase.driveDifferential(controller.getLeftY(), controller.getRightX()),
          m_driveBase
       )
     );
