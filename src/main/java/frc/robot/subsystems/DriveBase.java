@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
 public class DriveBase extends SubsystemBase{
+
     
     SparkMax leftLeader = new SparkMax(DriveConstants.MOTOR_ID_FRONT_LEFT, MotorType.kBrushless),
         rightLeader = new SparkMax(DriveConstants.MOTOR_ID_FRONT_RIGHT, MotorType.kBrushless),
@@ -23,6 +24,11 @@ public class DriveBase extends SubsystemBase{
 
     DifferentialDrive drive = new DifferentialDrive(leftLeader, rightLeader);
 
+    // AHRS ahrs = new AHRS(SerialPort.Port.kMXP);
+
+    
+
+    
     public DriveBase(){
 
         SparkMaxConfig baseConfig = new SparkMaxConfig();
@@ -62,7 +68,7 @@ public class DriveBase extends SubsystemBase{
     }
 
     public void driveDifferential(double speed, double rotation){
-        drive.curvatureDrive(speed, rotation,true);
+        drive.curvatureDrive(speed, -rotation,true);
     }
 
     public void driveTank(double left, double right){
@@ -83,5 +89,13 @@ public class DriveBase extends SubsystemBase{
 
     public Command driveOneSec(){
         return driveTimed(1.0);
+    }
+
+    // public Rotation2d getRotation(){
+    //     return Rotation2d.fromDegrees(ahrs.getYaw());
+    // }
+
+    public void periodic(){
+        // SmartDashboard.putNumber("rotation degs", getRotation().getDegrees());
     }
 }
