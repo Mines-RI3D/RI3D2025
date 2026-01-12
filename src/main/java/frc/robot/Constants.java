@@ -1,6 +1,7 @@
 package frc.robot;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
@@ -54,6 +55,7 @@ public final class Constants {
             public static final SparkMaxConfig config = new SparkMaxConfig();
             static{
                 config.closedLoop.pid(0.1, 0, 0);
+                config.closedLoop.allowedClosedLoopError(0.1, ClosedLoopSlot.kSlot0); //radians
                 config.idleMode(IdleMode.kBrake);
                 config.inverted(false);
                 config.smartCurrentLimit(25,25);
