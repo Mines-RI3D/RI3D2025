@@ -68,7 +68,7 @@ public class DriveBase extends SubsystemBase{
     }
 
     public void driveDifferential(double speed, double rotation){
-        drive.curvatureDrive(speed, -rotation,true);
+        drive.curvatureDrive(speed, rotation,true);
     }
 
     public void driveTank(double left, double right){
