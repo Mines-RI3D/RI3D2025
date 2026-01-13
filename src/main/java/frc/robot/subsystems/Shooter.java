@@ -24,7 +24,7 @@ public class Shooter {
 
     final SparkMax hoodSpinner = new SparkMax(ShooterConstants.HoodSpinner.MOTOR_ID, MotorType.kBrushless);
     final SparkClosedLoopController hoodSpinnerController = hoodSpinner.getClosedLoopController();
-    final RelativeEncoder hoodEncoder = hoodSpinner.getAlternateEncoder();
+    final RelativeEncoder hoodEncoder = hoodSpinner.getEncoder();
 
     final SparkMax pusher = new SparkMax(ShooterConstants.Pusher.MOTOR_ID, MotorType.kBrushless);
     final SparkClosedLoopController pusherController = pusher.getClosedLoopController();
