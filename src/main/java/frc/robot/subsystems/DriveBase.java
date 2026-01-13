@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import com.studica.frc.AHRS;
+import com.studica.frc.AHRS.NavXComType;
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkMax;
@@ -24,9 +26,7 @@ public class DriveBase extends SubsystemBase{
 
     DifferentialDrive drive = new DifferentialDrive(leftLeader, rightLeader);
 
-    // AHRS ahrs = new AHRS(SerialPort.Port.kMXP);
-
-    
+    AHRS ahrs = new AHRS(NavXComType.kMXP_UART);
 
     
     public DriveBase(){
@@ -62,7 +62,6 @@ public class DriveBase extends SubsystemBase{
         leftFollower.configure(leftFollowerConfig, ResetMode.kNoResetSafeParameters,PersistMode.kPersistParameters);
         rightFollower.configure(rightFollowerConfig, ResetMode.kNoResetSafeParameters,PersistMode.kPersistParameters);
 
-
         SmartDashboard.putData(driveOneSec());
 
     }
@@ -79,16 +78,16 @@ public class DriveBase extends SubsystemBase{
         drive.stopMotor();
     }
 
-    public Command driveTimed(double time){
+    public Command driveTimed(double speed,double time){
         return Commands.race(
-            Commands.run(() -> driveDifferential(0.1, 0), this ),
-            Commands.waitSeconds(2)
+            Commands.run(() -> driveDifferential(speed, 0), this ),
+            Commands.waitSeconds(time)
         )
         .andThen(Commands.runOnce(this::stop));
     } 
 
     public Command driveOneSec(){
-        return driveTimed(1.0);
+        return driveTimed(0.1,1.0);
     }
 
     // public Rotation2d getRotation(){
