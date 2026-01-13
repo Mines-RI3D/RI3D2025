@@ -1,9 +1,14 @@
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Radian;
+
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+
+import edu.wpi.first.units.measure.Angle;
 
 public final class Constants {
 
@@ -62,6 +67,42 @@ public final class Constants {
             }
         }
 
+    }
+
+    public static final class IntakeConstants{
+
+        public static final int bottomSlapdownDIOPort = 2;
+        public static final int topSlapdownDIOPort = 3;
+
+        public static final class SlapDown{
+            public static final int MOTOR_ID = 8;
+
+            public static final Angle topAngle = Angle.ofBaseUnits(79.192, Degrees);
+
+            public static final Angle bottomAngle = Angle.ofBaseUnits(0, Radian);
+
+            public static final SparkMaxConfig config = new SparkMaxConfig();
+            static{
+                config.closedLoop.pid(0.1, 0, 0,ClosedLoopSlot.kSlot0);
+                config.closedLoop.allowedClosedLoopError(0.1, ClosedLoopSlot.kSlot0);
+                config.idleMode(IdleMode.kCoast);
+                config.inverted(false);
+                config.smartCurrentLimit(25,25);
+            }
+        }
+
+        public static final class Intake{
+            public static final int MOTOR_ID = 9;
+
+            public static final SparkMaxConfig config = new SparkMaxConfig();
+            static{
+                config.closedLoop.pid(0.1, 0, 0, ClosedLoopSlot.kSlot0);
+                config.closedLoop.allowedClosedLoopError(0.1, ClosedLoopSlot.kSlot0);
+                config.idleMode(IdleMode.kCoast);
+                config.inverted(false);
+                config.smartCurrentLimit(25,25);
+            }
+        }
     }
 
 }
