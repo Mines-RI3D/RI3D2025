@@ -15,6 +15,8 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 
@@ -52,16 +54,26 @@ public class Shooter extends SubsystemBase {
         flywheel.setControl(velocityVoltage.withVelocity(velocity));
     }
 
+    public Command setFlywheelCommand(AngularVelocity velocity){
+        return Commands.run(()->setFlywheel(velocity))
+        .andThen(Commands.runOnce(this::stopFlywheel));
+    }
+
     public void stopFlywheel(){
         flywheel.stopMotor();
     }
 
-    public void setPusher(AngularVelocity velocity){
-        pusherController.setSetpoint(velocity.in(RadiansPerSecond),ControlType.kVelocity);
+    public void setPusher(double speed){
+        pusher.set(speed);
+    }
+
+    public Command setPusherCommand(double speed){
+        return Commands.run(()->setPusher(speed))
+        .andThen(Commands.runOnce(this::stopPusher));
     }
 
     public void stopPusher(){
-        pusherController.setSetpoint(0,ControlType.kVelocity);
+        pusher.stopMotor();
     }
 
     public void setHood( Rotation2d position){
