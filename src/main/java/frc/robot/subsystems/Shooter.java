@@ -15,9 +15,10 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 
-public class Shooter {
+public class Shooter extends SubsystemBase {
     
     final TalonFX flywheel = new TalonFX(ShooterConstants.Flywheel.MOTOR_ID);
     final VelocityVoltage velocityVoltage = new VelocityVoltage(RadiansPerSecond.of(0)).withSlot(0);

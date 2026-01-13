@@ -14,9 +14,10 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
-public class Intake {
+public class Intake extends SubsystemBase {
     
     public SparkMax slapdown = new SparkMax(IntakeConstants.SlapDown.MOTOR_ID, MotorType.kBrushless);
     public SparkClosedLoopController slapdownController = slapdown.getClosedLoopController();
