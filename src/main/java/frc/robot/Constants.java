@@ -2,6 +2,9 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Radian;
+import static edu.wpi.first.units.Units.Radians;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
+import static edu.wpi.first.units.Units.Revolutions;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.revrobotics.spark.ClosedLoopSlot;
@@ -9,6 +12,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularVelocity;
 
 public final class Constants {
 
@@ -30,10 +34,15 @@ public final class Constants {
         public static final class Flywheel{
             public static final int MOTOR_ID = 5;
 
+            public static final AngularVelocity shooterSpeed = RadiansPerSecond.of(104);
+
             public static final TalonFXConfiguration config = new TalonFXConfiguration();
             static{
-                // config.Slot0.kP = 0.1;
-                // config.Slot0
+                config.Slot0.kP = 0.1;
+                config.Slot0.kI = 0;
+                config.Slot0.kD = 0;
+                config.Slot0.kS = 0;
+                config.Slot0.kV = 0;
             }
             
         }
@@ -43,9 +52,10 @@ public final class Constants {
 
             public static final int DIO_PORT_LIMIT_SWITCH = 1;
 
+            public static final double pushSpeed = 0.5;
+
             public static final SparkMaxConfig config = new SparkMaxConfig();
             static{
-                config.closedLoop.pid(0.1, 0, 0);
                 config.idleMode(IdleMode.kBrake);
                 config.inverted(false);
                 config.smartCurrentLimit(25,25);
@@ -105,4 +115,22 @@ public final class Constants {
         }
     }
 
+
+    public static final class ClimberConstants{
+
+        public static final int motorID = 10;
+
+        public static final Angle startpos = Angle.ofBaseUnits(0, Radians);
+        public static final Angle attachAngle = Angle.ofBaseUnits(0, Radians);
+        public static final Angle l1Angle = Angle.ofBaseUnits(2, Revolutions );
+        public static final Angle l2Angle = Angle.ofBaseUnits(0, Radians);
+        
+        public static final SparkMaxConfig motorConfig = new SparkMaxConfig();
+        static{
+            motorConfig.idleMode(IdleMode.kBrake)
+                .inverted(false)
+                .smartCurrentLimit(30);
+        }
+
+    }
 }
